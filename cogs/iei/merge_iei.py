@@ -11,7 +11,7 @@ def merge_iei(file, text = None):
     resize_image.convert("L")
     if text != None:
         draw = ImageDraw.Draw(base)
-        font = ImageFont.truetype("./cogs/iei/meiryob.ttc", size=70)
+        font = ImageFont.truetype("./cogs/iei/gothic2.ttf", size=70)
         draw.text((340, 400), text, fill=(255, 0, 0), font=font, anchor="mm")
     base.save(file, quality=100)
     return file
