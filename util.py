@@ -1,4 +1,5 @@
 from re import search
+import aiohttp
 import discord
 import discord.ext.commands.context
 import os
@@ -78,6 +79,11 @@ async def getAttachmentsAudio(message: discord.Message):
     
     return file
 
+async def async_get_json(url):
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as response:
+            return await response.json()
+    
 def check_file_size(url):
     byte = os.path.getsize(url)
     #if 8mb over
