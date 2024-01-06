@@ -1,8 +1,8 @@
-discord.py
+#Python 3.10.x
+discord.py==1.7.3
 ffmpeg-python==0.2.0
 Pillow==9.0.0
 requests
-sclib==1.0.0
 soundcloud_lib==0.5.4
 youtube_dl==2021.12.17
-numpy
+numpy==1.23.1
