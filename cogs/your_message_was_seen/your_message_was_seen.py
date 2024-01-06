@@ -7,6 +7,7 @@ from discord.ext import commands
 import os
 
 from cogs.your_message_was_seen.image import mergeImage
+from util import async_get_json
 
 
 class YourMessageWasSeen(commands.Cog, name="あなたの発言見られてますよ"):
@@ -32,9 +33,15 @@ class YourMessageWasSeen(commands.Cog, name="あなたの発言見られてま�
         else:
             message = ctx.message
 
+        disaply_name_json = await async_get_json(f"https://dashboard.botghost.com/api/public/tools/user_lookup/{message.author.id}")
+        if disaply_name_json["global_name"] == None:
+            disaply_name = message.author.name
+        else:
+            disaply_name = disaply_name_json["global_name"]
+
         avatar_img = self._downloadExternalImg(message.author.avatar_url_as(size=128))
         try:
-            patternAppliedImg = await discordMsg(avatar_img, message.content, message.author.name, "#FFFFFF")
+            patternAppliedImg = await discordMsg(avatar_img, message.content, disaply_name, "#FFFFFF")
         except Exception as e:
             await ctx.send("Error")
         
@@ -49,4 +56,4 @@ class YourMessageWasSeen(commands.Cog, name="あなたの発言見られてま�
 
 
 def setup(bot):
-    bot.add_cog(YourMessageWasSeen(bot))
+    return bot.add_cog(YourMessageWasSeen(bot))
